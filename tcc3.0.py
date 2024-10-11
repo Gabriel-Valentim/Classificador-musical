@@ -42,6 +42,7 @@ metodo = 'nri_uniform'
 diretorios = ['base/fold1', 'base/fold2', 'base/fold3']
 
 hist = []
+hist_aux = []
 tag = [1,2,3,4,5,6,7,8,9,10]
 
 for diretorio in diretorios:
@@ -50,10 +51,17 @@ for diretorio in diretorios:
         caminho_imagem = os.path.join(diretorio, arquivo)  # Construir caminho completo
         # Carregar a imagem em escala de cinza
         imagem = cv2.imread(caminho_imagem, cv2.IMREAD_GRAYSCALE)
-        hist.append(calcula_lbp(imagem, P, R, metodo))
+        hist_aux.append(calcula_lbp(imagem, P, R, metodo))
+    hist.append(hist_aux)
+    hist_aux = []
 
 
 results = kfoldcv(hist, 3)
 
+print(hist)
 print(len(hist))
-print(len(results))
+# print(len(results))
+
+
+# hist = [ [[1,2,3],[4,5,6]], [[7,8,9],[10, 11, 12]] ]
+
